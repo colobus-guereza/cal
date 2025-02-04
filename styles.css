@@ -21,25 +21,29 @@ body {
     width: 90%;
     max-width: 400px;
     height: auto;
-    padding: 2rem;
+    min-height: min(90vh, 800px);
+    max-height: 90vh;
+    padding: 1.5rem;
     background: rgba(0, 0, 0, 0.8);
     border: 1px solid var(--neon-yellow);
     box-shadow: 0 0 20px var(--neon-yellow);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
 }
 
 h1 {
     text-align: center;
     color: var(--neon-yellow);
     text-shadow: 0 0 10px var(--neon-yellow);
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
 }
 
 .input-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     position: relative;
 }
 
@@ -120,7 +124,7 @@ input {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    margin: 1rem 0;
+    margin: 0.8rem 0;
 }
 
 button {
@@ -141,7 +145,7 @@ button:hover {
 
 .reset-btn {
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .result {
@@ -228,4 +232,72 @@ input {
     font-size: 1.1rem;
     outline: none;
     font-family: 'Share Tech Mono', monospace;
+}
+
+/* 모바일 최적화를 위한 미디어 쿼리 추가 */
+@media screen and (max-height: 700px) {
+    .container {
+        padding: 1rem;
+        min-height: 95vh;
+    }
+
+    h1 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.8rem;
+    }
+
+    .fee-checkbox {
+        margin: 0.8rem 0;
+        padding: 0.4rem;
+    }
+
+    .percentage-buttons {
+        gap: 0.8rem;
+        margin: 0.8rem 0;
+    }
+
+    button {
+        padding: 0.6rem;
+    }
+
+    .profit p, .loss p {
+        margin: 0.3rem 0;
+        font-size: 1.1rem;
+    }
+}
+
+/* iOS Safari 전용 스타일 */
+@supports (-webkit-touch-callout: none) {
+    .container {
+        height: -webkit-fill-available;
+        min-height: -webkit-fill-available;
+    }
+
+    body {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* 추가적인 모바일 최적화 */
+@media screen and (max-width: 380px) {
+    .container {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .percentage-buttons {
+        gap: 0.5rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+
+    .fee-checkbox label {
+        font-size: 0.8rem;
+    }
 } 
