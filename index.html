@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make some profit!</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -21,7 +22,7 @@
                 <div class="neon-line"></div>
             </div>
             <div class="fee-checkbox">
-                <input type="checkbox" id="feeCheck">
+                <input type="checkbox" id="feeCheck" onchange="handleFeeChange()">
                 <label for="feeCheck">Include Trading Fee (₩5,000)</label>
             </div>
             <div class="percentage-buttons">
@@ -33,13 +34,13 @@
             <button class="reset-btn" onclick="reset()">Reset</button>
             <div class="result">
                 <div class="profit">
-                    <h3>Earning Price</h3>
+                    <h3>Earning</h3>
                     <p id="profitPrice">-</p>
                     <p id="profitAmount">-</p>
                     <p id="profitTotal">-</p>
                 </div>
                 <div class="loss">
-                    <h3>Loss Price</h3>
+                    <h3>Loss</h3>
                     <p id="lossPrice">-</p>
                     <p id="lossAmount">-</p>
                     <p id="lossTotal">-</p>
