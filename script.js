@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function calculate(percentage) {
     const marketPrice = parseFloat(document.getElementById('marketPrice').value.replace(/,/g, ''));
     const purchaseAmount = parseFloat(document.getElementById('purchaseAmount').value.replace(/,/g, ''));
+    const includeFee = document.getElementById('feeCheck').checked;
+    const fee = includeFee ? 5000 : 0;
 
     if (!marketPrice || !purchaseAmount) {
         alert('Please enter both Market Price and Purchase Amount.');
@@ -37,8 +39,8 @@ function calculate(percentage) {
     const profitPrice = marketPrice * (1 + percentage / 100);
     const lossPrice = marketPrice * (1 - percentage / 100);
 
-    const profitAmount = purchaseAmount * (1 + percentage / 100);
-    const lossAmount = purchaseAmount * (1 - percentage / 100);
+    const profitAmount = purchaseAmount * (1 + percentage / 100) - fee;
+    const lossAmount = purchaseAmount * (1 - percentage / 100) - fee;
 
     document.getElementById('profitPrice').textContent =
         `₩${formatNumber(Math.round(profitPrice))}`;
@@ -48,11 +50,15 @@ function calculate(percentage) {
         `+₩${formatNumber(Math.round(profitAmount - purchaseAmount))}`;
     document.getElementById('lossAmount').textContent =
         `-₩${formatNumber(Math.round(Math.abs(lossAmount - purchaseAmount)))}`;
+    document.getElementById('profitTotal').textContent =
+        `Total: ₩${formatNumber(Math.round(profitAmount))}`;
+    document.getElementById('lossTotal').textContent =
+        `Total: ₩${formatNumber(Math.round(lossAmount))}`;
 }
 
 function reset() {
     const inputs = ['marketPrice', 'purchaseAmount'];
-    const outputs = ['profitPrice', 'lossPrice', 'profitAmount', 'lossAmount'];
+    const outputs = ['profitPrice', 'lossPrice', 'profitAmount', 'lossAmount', 'profitTotal', 'lossTotal'];
 
     inputs.forEach(id => {
         document.getElementById(id).value = '';
@@ -61,4 +67,6 @@ function reset() {
     outputs.forEach(id => {
         document.getElementById(id).textContent = '-';
     });
+
+    document.getElementById('feeCheck').checked = false;
 } 
