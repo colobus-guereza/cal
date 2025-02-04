@@ -1,143 +1,127 @@
-:root {
-    --neon-yellow: #ffff00;
-    --neon-green: #00ff66;
-    --neon-red: #ff0033;
-    --dark-bg: #0a0a0f;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--dark-bg);
-    color: white;
-    font-family: 'Orbitron', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container {
-    width: 90%;
-    max-width: 400px;
-    height: auto;
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid var(--neon-yellow);
-    box-shadow: 0 0 20px var(--neon-yellow);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-h1 {
-    text-align: center;
-    color: var(--neon-yellow);
-    text-shadow: 0 0 10px var(--neon-yellow);
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-}
-
-.input-group {
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-input {
-    width: 100%;
-    padding: 0.8rem;
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.1rem;
-    outline: none;
-}
-
-.neon-line {
-    height: 2px;
-    background: var(--neon-yellow);
-    box-shadow: 0 0 5px var(--neon-yellow);
-    width: 100%;
-}
-
-.fee-checkbox {
-    margin: 1rem 0;
-    color: var(--neon-yellow);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.fee-checkbox input[type="checkbox"] {
-    width: auto;
-    cursor: pointer;
-}
-
-.fee-checkbox label {
-    cursor: pointer;
-}
-
-.percentage-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-button {
-    padding: 0.8rem;
-    background: transparent;
-    border: 1px solid var(--neon-yellow);
-    color: var(--neon-yellow);
-    cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'Orbitron', sans-serif;
-}
-
-button:hover {
-    background: var(--neon-yellow);
-    color: black;
-    box-shadow: 0 0 10px var(--neon-yellow);
-}
-
-.reset-btn {
-    width: 100%;
-    margin-bottom: 1.5rem;
-}
-
-.result {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 1rem;
-}
-
-.profit, .loss {
-    text-align: center;
-}
-
-.profit h3 {
-    color: var(--neon-green);
-    margin-bottom: 0.5rem;
-}
-
-.loss h3 {
-    color: var(--neon-red);
-    margin-bottom: 0.5rem;
-}
-
-.profit p {
-    color: var(--neon-green);
-    margin: 0.5rem 0;
-}
-
-.loss p {
-    color: var(--neon-red);
-    margin: 0.5rem 0;
-}
-
-@media (max-width: 480px) {
-    .percentage-buttons {
-        grid-template-columns: repeat(2, 1fr);
+// 숫자 포맷팅 함수
+function formatNumber(num) {
+    try {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } catch (e) {
+        console.error('Number formatting error:', e);
+        return num.toString();
     }
+}
+
+// 숫자만 입력받는 함수
+function onlyNumbers(str) {
+    if (!str) return '';
+    return str.toString().replace(/[^\d]/g, '');
+}
+
+// 입력 필드에 숫자 포맷팅 적용
+function formatInput(element) {
+    if (!element || !element.value) return;
+
+    let value = onlyNumbers(element.value);
+    if (value) {
+        // setTimeout으로 비동기 처리
+        setTimeout(() => {
+            element.value = formatNumber(value);
+        }, 0);
+    }
+}
+
+// 입력 필드 이벤트 리스너 설정
+document.addEventListener('DOMContentLoaded', function () {
+    // iOS에서 터치 이벤트 최적화
+    const addTouchStyle = (element) => {
+        element.addEventListener('touchstart', function () {
+            this.style.opacity = '0.7';
+        });
+        element.addEventListener('touchend', function () {
+            this.style.opacity = '1';
+        });
+    };
+
+    // 모든 버튼에 터치 스타일 적용
+    document.querySelectorAll('button').forEach(addTouchStyle);
+
+    // 입력 필드 이벤트 리스너 수정
+    const inputs = ['marketPrice', 'purchaseAmount'];
+    inputs.forEach(id => {
+        const element = document.getElementById(id);
+        // input, change 이벤트 모두 처리
+        ['input', 'change'].forEach(eventType => {
+            element.addEventListener(eventType, () => formatInput(element));
+        });
+    });
+});
+
+let lastPercentage = null; // 마지막으로 선택된 퍼센테이지 저장
+
+function handleFeeChange() {
+    if (lastPercentage !== null) {
+        calculate(lastPercentage);
+    }
+}
+
+function calculate(percentage) {
+    try {
+        lastPercentage = percentage;
+
+        const marketPrice = parseFloat(document.getElementById('marketPrice').value.replace(/[^\d]/g, ''));
+        const purchaseAmount = parseFloat(document.getElementById('purchaseAmount').value.replace(/[^\d]/g, ''));
+        const includeFee = document.getElementById('feeCheck').checked;
+        const fee = includeFee ? 5000 : 0;
+
+        if (!marketPrice || !purchaseAmount) {
+            alert('Please enter both Market Price and Purchase Amount.');
+            return;
+        }
+
+        // 계산 결과를 setTimeout으로 비동기 처리
+        setTimeout(() => {
+            const profitPrice = marketPrice * (1 + percentage / 100);
+            const lossPrice = marketPrice * (1 - percentage / 100);
+
+            const profitAmount = purchaseAmount * (1 + percentage / 100) - fee;
+            const lossAmount = purchaseAmount * (1 - percentage / 100) - fee;
+
+            updateResults(profitPrice, lossPrice, profitAmount, lossAmount, purchaseAmount);
+        }, 0);
+    } catch (e) {
+        console.error('Calculation error:', e);
+    }
+}
+
+// 결과 업데이트 함수 분리
+function updateResults(profitPrice, lossPrice, profitAmount, lossAmount, purchaseAmount) {
+    try {
+        document.getElementById('profitPrice').textContent =
+            `₩${formatNumber(Math.round(profitPrice))}`;
+        document.getElementById('lossPrice').textContent =
+            `₩${formatNumber(Math.round(lossPrice))}`;
+        document.getElementById('profitAmount').textContent =
+            `+₩${formatNumber(Math.round(profitAmount - purchaseAmount))}`;
+        document.getElementById('lossAmount').textContent =
+            `-₩${formatNumber(Math.round(Math.abs(lossAmount - purchaseAmount)))}`;
+        document.getElementById('profitTotal').textContent =
+            `Total: ₩${formatNumber(Math.round(profitAmount))}`;
+        document.getElementById('lossTotal').textContent =
+            `Total: ₩${formatNumber(Math.round(lossAmount))}`;
+    } catch (e) {
+        console.error('Update results error:', e);
+    }
+}
+
+function reset() {
+    lastPercentage = null; // 리셋 시 마지막 퍼센테이지도 초기화
+    const inputs = ['marketPrice', 'purchaseAmount'];
+    const outputs = ['profitPrice', 'lossPrice', 'profitAmount', 'lossAmount', 'profitTotal', 'lossTotal'];
+
+    inputs.forEach(id => {
+        document.getElementById(id).value = '';
+    });
+
+    outputs.forEach(id => {
+        document.getElementById(id).textContent = '-';
+    });
+
+    document.getElementById('feeCheck').checked = false;
 } 
