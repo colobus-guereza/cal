@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Make some profit!</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="styles.css">
@@ -14,11 +16,11 @@
         <h1>Make some profit!</h1>
         <div class="calculator">
             <div class="input-group">
-                <input type="text" id="marketPrice" placeholder="Market Price" inputmode="numeric">
+                <input type="tel" id="marketPrice" placeholder="Market Price" pattern="[0-9]*">
                 <div class="neon-line"></div>
             </div>
             <div class="input-group">
-                <input type="text" id="purchaseAmount" placeholder="Purchase Amount" inputmode="numeric">
+                <input type="tel" id="purchaseAmount" placeholder="Purchase Amount" pattern="[0-9]*">
                 <div class="neon-line"></div>
             </div>
             <div class="fee-checkbox">
