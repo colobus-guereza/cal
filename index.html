@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지정가 계산기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>지정가 계산기</h1>
+        <div class="calculator">
+            <div class="input-group">
+                <input type="number" id="marketPrice" placeholder="시장가">
+                <div class="neon-line"></div>
+            </div>
+            <div class="input-group">
+                <input type="number" id="purchaseAmount" placeholder="구매금액">
+                <div class="neon-line"></div>
+            </div>
+            <div class="percentage-buttons">
+                <button onclick="calculate(2)">2%</button>
+                <button onclick="calculate(3)">3%</button>
+                <button onclick="calculate(4)">4%</button>
+                <button onclick="calculate(5)">5%</button>
+            </div>
+            <button class="reset-btn" onclick="reset()">초기화</button>
+            <div class="result">
+                <div class="profit">
+                    <h3>이익 지정가</h3>
+                    <p id="profitPrice">-</p>
+                    <p id="profitAmount">-</p>
+                </div>
+                <div class="loss">
+                    <h3>손실 지정가</h3>
+                    <p id="lossPrice">-</p>
+                    <p id="lossAmount">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
