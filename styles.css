@@ -65,16 +65,51 @@ input {
     color: var(--neon-yellow);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding: 0.5rem;
+    border: 1px solid var(--neon-yellow);
+    border-radius: 5px;
+    background: rgba(255, 255, 0, 0.1);
 }
 
 .fee-checkbox input[type="checkbox"] {
-    width: auto;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid var(--neon-yellow);
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.fee-checkbox input[type="checkbox"]:checked {
+    background: var(--neon-yellow);
+    box-shadow: 0 0 10px var(--neon-yellow);
+}
+
+.fee-checkbox input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .fee-checkbox label {
     cursor: pointer;
+    font-size: 0.9rem;
+    text-shadow: 0 0 5px var(--neon-yellow);
+}
+
+.fee-checkbox:hover {
+    box-shadow: 0 0 10px var(--neon-yellow);
 }
 
 .percentage-buttons {
