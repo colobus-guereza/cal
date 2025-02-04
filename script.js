@@ -25,7 +25,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+let lastPercentage = null; // 마지막으로 선택된 퍼센테이지 저장
+
+function handleFeeChange() {
+    if (lastPercentage !== null) {
+        calculate(lastPercentage);
+    }
+}
+
 function calculate(percentage) {
+    lastPercentage = percentage; // 현재 선택된 퍼센테이지 저장
+
     const marketPrice = parseFloat(document.getElementById('marketPrice').value.replace(/,/g, ''));
     const purchaseAmount = parseFloat(document.getElementById('purchaseAmount').value.replace(/,/g, ''));
     const includeFee = document.getElementById('feeCheck').checked;
@@ -57,6 +67,7 @@ function calculate(percentage) {
 }
 
 function reset() {
+    lastPercentage = null; // 리셋 시 마지막 퍼센테이지도 초기화
     const inputs = ['marketPrice', 'purchaseAmount'];
     const outputs = ['profitPrice', 'lossPrice', 'profitAmount', 'lossAmount', 'profitTotal', 'lossTotal'];
 
