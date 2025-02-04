@@ -82,8 +82,11 @@ input {
     appearance: none;
     border: 2px solid var(--neon-yellow);
     border-radius: 4px;
-    background: transparent;
+    background: rgba(255, 255, 0, 0.1);
     transition: all 0.3s;
+    display: inline-block;
+    margin-right: 10px;
+    box-shadow: 0 0 5px var(--neon-yellow);
 }
 
 .fee-checkbox input[type="checkbox"]:checked {
@@ -178,18 +181,15 @@ button:hover {
 }
 
 /* iOS 터치 최적화 스타일 추가 */
-button, input[type="checkbox"], label {
+button, label {
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     touch-action: manipulation;
 }
 
-/* iOS input 스타일 초기화 */
-input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0;
+input[type="checkbox"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 /* iOS에서 줌 방지 */
