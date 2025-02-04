@@ -51,6 +51,7 @@ input {
     color: white;
     font-size: 1.1rem;
     outline: none;
+    font-family: 'Share Tech Mono', monospace;
 }
 
 .neon-line {
@@ -69,7 +70,7 @@ input {
     padding: 0.5rem;
     border: 1px solid var(--neon-yellow);
     border-radius: 5px;
-    background: rgba(255, 255, 0, 0.1);
+    background: transparent;
 }
 
 .fee-checkbox input[type="checkbox"] {
@@ -167,11 +168,17 @@ button:hover {
 .profit p {
     color: var(--neon-green);
     margin: 0.5rem 0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
 }
 
 .loss p {
     color: var(--neon-red);
     margin: 0.5rem 0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
 }
 
 @media (max-width: 480px) {
@@ -199,4 +206,26 @@ input[type="checkbox"] {
     input {
         font-size: 16px;
     }
+}
+
+/* 숫자 표시를 위한 새로운 폰트 추가 및 적용 */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* 숫자가 표시되는 요소들의 폰트 변경 */
+.profit p, .loss p {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+/* 입력 필드의 숫자 폰트도 변경 */
+input {
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+    font-family: 'Share Tech Mono', monospace;
 } 
