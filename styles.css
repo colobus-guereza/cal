@@ -1,6 +1,7 @@
- :root {
+:root {
     --neon-blue: #00f3ff;
-    --neon-pink: #ff00ff;
+    --neon-green: #00ff66;
+    --neon-red: #ff0033;
     --dark-bg: #0a0a0f;
 }
 
@@ -18,12 +19,16 @@ body {
 
 .container {
     width: 90%;
-    max-width: 600px;
+    max-width: 400px;
+    height: calc(100vh - 4rem);
     padding: 2rem;
     background: rgba(0, 0, 0, 0.8);
     border: 1px solid var(--neon-blue);
     box-shadow: 0 0 20px var(--neon-blue);
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 9/19.6;
 }
 
 h1 {
@@ -31,6 +36,7 @@ h1 {
     color: var(--neon-blue);
     text-shadow: 0 0 10px var(--neon-blue);
     margin-bottom: 2rem;
+    font-size: 1.8rem;
 }
 
 .input-group {
@@ -65,17 +71,17 @@ input {
 button {
     padding: 0.8rem;
     background: transparent;
-    border: 1px solid var(--neon-pink);
-    color: var(--neon-pink);
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
     cursor: pointer;
     transition: all 0.3s;
     font-family: 'Courier New', monospace;
 }
 
 button:hover {
-    background: var(--neon-pink);
+    background: var(--neon-blue);
     color: black;
-    box-shadow: 0 0 10px var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-blue);
 }
 
 .reset-btn {
@@ -94,11 +100,19 @@ button:hover {
 }
 
 .profit h3 {
-    color: var(--neon-blue);
+    color: var(--neon-green);
 }
 
 .loss h3 {
-    color: var(--neon-pink);
+    color: var(--neon-red);
+}
+
+.profit p {
+    color: var(--neon-green);
+}
+
+.loss p {
+    color: var(--neon-red);
 }
 
 @media (max-width: 480px) {
