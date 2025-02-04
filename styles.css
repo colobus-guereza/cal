@@ -1,56 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
+:root {
+    --neon-yellow: #ffff00;
+    --neon-green: #00ff66;
+    --neon-red: #ff0033;
+    --dark-bg: #0a0a0f;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Make some profit!</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="styles.css">
-</head>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark-bg);
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-<body>
-    <div class="container">
-        <h1>Make some profit!</h1>
-        <div class="calculator">
-            <div class="input-group">
-                <input type="tel" id="marketPrice" placeholder="Market Price" pattern="[0-9]*">
-                <div class="neon-line"></div>
-            </div>
-            <div class="input-group">
-                <input type="tel" id="purchaseAmount" placeholder="Purchase Amount" pattern="[0-9]*">
-                <div class="neon-line"></div>
-            </div>
-            <div class="fee-checkbox">
-                <input type="checkbox" id="feeCheck" onchange="handleFeeChange()">
-                <label for="feeCheck">Include Trading Fee (₩5,000)</label>
-            </div>
-            <div class="percentage-buttons">
-                <button onclick="calculate(2)">2%</button>
-                <button onclick="calculate(3)">3%</button>
-                <button onclick="calculate(4)">4%</button>
-                <button onclick="calculate(5)">5%</button>
-            </div>
-            <button class="reset-btn" onclick="reset()">Reset</button>
-            <div class="result">
-                <div class="profit">
-                    <h3>Earning</h3>
-                    <p id="profitPrice">-</p>
-                    <p id="profitAmount">-</p>
-                    <p id="profitTotal">-</p>
-                </div>
-                <div class="loss">
-                    <h3>Loss</h3>
-                    <p id="lossPrice">-</p>
-                    <p id="lossAmount">-</p>
-                    <p id="lossTotal">-</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
+.container {
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--neon-yellow);
+    box-shadow: 0 0 20px var(--neon-yellow);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
 
-</html>
+h1 {
+    text-align: center;
+    color: var(--neon-yellow);
+    text-shadow: 0 0 10px var(--neon-yellow);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+.neon-line {
+    height: 2px;
+    background: var(--neon-yellow);
+    box-shadow: 0 0 5px var(--neon-yellow);
+    width: 100%;
+}
+
+.fee-checkbox {
+    margin: 1rem 0;
+    color: var(--neon-yellow);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.fee-checkbox input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+}
+
+.fee-checkbox label {
+    cursor: pointer;
+}
+
+.percentage-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+button {
+    padding: 0.8rem;
+    background: transparent;
+    border: 1px solid var(--neon-yellow);
+    color: var(--neon-yellow);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Orbitron', sans-serif;
+}
+
+button:hover {
+    background: var(--neon-yellow);
+    color: black;
+    box-shadow: 0 0 10px var(--neon-yellow);
+}
+
+.reset-btn {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.result {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.profit, .loss {
+    text-align: center;
+}
+
+.profit h3 {
+    color: var(--neon-green);
+    margin-bottom: 0.5rem;
+}
+
+.loss h3 {
+    color: var(--neon-red);
+    margin-bottom: 0.5rem;
+}
+
+.profit p {
+    color: var(--neon-green);
+    margin: 0.5rem 0;
+}
+
+.loss p {
+    color: var(--neon-red);
+    margin: 0.5rem 0;
+}
+
+@media (max-width: 480px) {
+    .percentage-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* iOS 터치 최적화 스타일 추가 */
+button, input[type="checkbox"], label {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+/* iOS input 스타일 초기화 */
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+/* iOS에서 줌 방지 */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select,
+    textarea,
+    input {
+        font-size: 16px;
+    }
+} 
