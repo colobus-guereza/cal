@@ -1,9 +1,36 @@
- function calculate(percentage) {
-    const marketPrice = parseFloat(document.getElementById('marketPrice').value);
-    const purchaseAmount = parseFloat(document.getElementById('purchaseAmount').value);
+// 숫자 포맷팅 함수
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// 숫자만 입력받는 함수
+function onlyNumbers(str) {
+    return str.replace(/[^\d]/g, '');
+}
+
+// 입력 필드에 숫자 포맷팅 적용
+function formatInput(element) {
+    let value = onlyNumbers(element.value);
+    if (value) {
+        element.value = formatNumber(value);
+    }
+}
+
+// 입력 필드 이벤트 리스너 설정
+document.addEventListener('DOMContentLoaded', function () {
+    const inputs = ['marketPrice', 'purchaseAmount'];
+    inputs.forEach(id => {
+        const element = document.getElementById(id);
+        element.addEventListener('input', () => formatInput(element));
+    });
+});
+
+function calculate(percentage) {
+    const marketPrice = parseFloat(document.getElementById('marketPrice').value.replace(/,/g, ''));
+    const purchaseAmount = parseFloat(document.getElementById('purchaseAmount').value.replace(/,/g, ''));
 
     if (!marketPrice || !purchaseAmount) {
-        alert('시장가와 구매금액을 모두 입력해주세요.');
+        alert('Please enter both Market Price and Purchase Amount.');
         return;
     }
 
@@ -14,20 +41,24 @@
     const lossAmount = purchaseAmount * (1 - percentage / 100);
 
     document.getElementById('profitPrice').textContent =
-        `${profitPrice.toLocaleString('ko-KR')}원`;
+        `₩${formatNumber(Math.round(profitPrice))}`;
     document.getElementById('lossPrice').textContent =
-        `${lossPrice.toLocaleString('ko-KR')}원`;
+        `₩${formatNumber(Math.round(lossPrice))}`;
     document.getElementById('profitAmount').textContent =
-        `수익: +${(profitAmount - purchaseAmount).toLocaleString('ko-KR')}원`;
+        `+₩${formatNumber(Math.round(profitAmount - purchaseAmount))}`;
     document.getElementById('lossAmount').textContent =
-        `손실: ${(lossAmount - purchaseAmount).toLocaleString('ko-KR')}원`;
+        `-₩${formatNumber(Math.round(Math.abs(lossAmount - purchaseAmount)))}`;
 }
 
 function reset() {
-    document.getElementById('marketPrice').value = '';
-    document.getElementById('purchaseAmount').value = '';
-    document.getElementById('profitPrice').textContent = '-';
-    document.getElementById('lossPrice').textContent = '-';
-    document.getElementById('profitAmount').textContent = '-';
-    document.getElementById('lossAmount').textContent = '-';
+    const inputs = ['marketPrice', 'purchaseAmount'];
+    const outputs = ['profitPrice', 'lossPrice', 'profitAmount', 'lossAmount'];
+
+    inputs.forEach(id => {
+        document.getElementById(id).value = '';
+    });
+
+    outputs.forEach(id => {
+        document.getElementById(id).textContent = '-';
+    });
 } 
