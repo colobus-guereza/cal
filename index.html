@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Limit Order Calculator</title>
+    <title>Make some profit!</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Limit Order Calculator</h1>
+        <h1>Make some profit!</h1>
         <div class="calculator">
             <div class="input-group">
                 <input type="text" id="marketPrice" placeholder="Market Price" inputmode="numeric">
@@ -19,6 +19,10 @@
             <div class="input-group">
                 <input type="text" id="purchaseAmount" placeholder="Purchase Amount" inputmode="numeric">
                 <div class="neon-line"></div>
+            </div>
+            <div class="fee-checkbox">
+                <input type="checkbox" id="feeCheck">
+                <label for="feeCheck">Include Trading Fee (₩5,000)</label>
             </div>
             <div class="percentage-buttons">
                 <button onclick="calculate(2)">2%</button>
@@ -32,11 +36,13 @@
                     <h3>Earning Price</h3>
                     <p id="profitPrice">-</p>
                     <p id="profitAmount">-</p>
+                    <p id="profitTotal">-</p>
                 </div>
                 <div class="loss">
                     <h3>Loss Price</h3>
                     <p id="lossPrice">-</p>
                     <p id="lossAmount">-</p>
+                    <p id="lossTotal">-</p>
                 </div>
             </div>
         </div>
