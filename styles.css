@@ -10,7 +10,7 @@ body {
     padding: 0;
     background-color: var(--dark-bg);
     color: white;
-    font-family: 'Courier New', monospace;
+    font-family: 'Orbitron', sans-serif;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -91,7 +91,7 @@ button {
     color: var(--neon-yellow);
     cursor: pointer;
     transition: all 0.3s;
-    font-family: 'Courier New', monospace;
+    font-family: 'Orbitron', sans-serif;
 }
 
 button:hover {
@@ -139,5 +139,29 @@ button:hover {
 @media (max-width: 480px) {
     .percentage-buttons {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* iOS 터치 최적화 스타일 추가 */
+button, input[type="checkbox"], label {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+/* iOS input 스타일 초기화 */
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+/* iOS에서 줌 방지 */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select,
+    textarea,
+    input {
+        font-size: 16px;
     }
 } 
